@@ -1,0 +1,1600 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <style>
+        .custom-select {
+            position: relative;
+            font-family: Arial;
+            width:200px;
+            height: 44px;
+        }
+
+        .custom-select select {
+            display: none; /*hide original SELECT element: */
+        }
+
+        .select-selected {
+            background-color: #f1f1f1;
+        }
+
+        /* Style the arrow inside the select element: */
+        .select-selected:after {
+            position: absolute;
+            content: "";
+            top: 14px;
+            right: 10px;
+            width: 0;
+            height: 0;
+            border: 6px solid transparent;
+            border-color: #101010 transparent transparent transparent;
+        }
+
+        /* Point the arrow upwards when the select box is open (active): */
+        .select-selected.select-arrow-active:after {
+            border-color: transparent transparent #101010 transparent;
+            top: 7px;
+        }
+
+        /* style the items (options), including the selected item: */
+        .select-items div,.select-selected {
+            color: #000;
+            padding: 8px 16px;
+            border: 1px solid transparent;
+            border-color: transparent transparent rgba(0, 0, 0, 0.1) transparent;
+            cursor: pointer;
+        }
+
+        /* Style items (options): */
+        .select-items {
+            box-shadow: 0 0 30px #aaaaaa55;
+            border-radius: 15px;
+            border: 1px solid transparent;
+            border-color: rgba(0, 0, 0, 0.1);
+            position: absolute;
+            background-color: #f1f1f1;
+            top: 100%;
+            left: 0;
+            right: 0;
+            z-index: 99;
+        }
+
+        /* Hide the items when the select box is closed: */
+        .select-hide {
+            display: none;
+        }
+
+        .select-items div:hover, .same-as-selected {
+            background-color: rgba(0, 0, 0, 0.1);
+        }
+        #myInput {
+            background-image: url('/css/searchicon.png'); /* Add a search icon to input */
+            background-position: 10px 12px; /* Position the search icon */
+            background-repeat: no-repeat; /* Do not repeat the icon image */
+            width: 80%; /* Full-width */
+            font-size: 16px; /* Increase font-size */
+            padding: 12px 20px 12px 40px; /* Add some padding */
+            border: 1px solid #ddd; /* Add a grey border */
+            margin-bottom: 12px; /* Add some space below the input */
+          }
+          
+          #myTable {
+            border-collapse: collapse; /* Collapse borders */
+            width: 100%; /* Full-width */
+            border: 1px solid #ddd; /* Add a grey border */
+            font-size: 18px; /* Increase font-size */
+          }
+          
+          #myTable th, #myTable td {
+            text-align: left; /* Left-align text */
+            padding: 12px; /* Add padding */
+          }
+          
+          #myTable tr {
+            /* Add a bottom border to all table rows */
+            border-bottom: 1px solid #ddd;
+          }
+          
+          #myTable tr.header, #myTable tr:hover {
+            /* Add a grey background color to the table header and on hover */
+            background-color: #f1f1f1;
+          }</style>
+    </head>
+    <body>
+        <div class="custom-select">
+            <select name="search" id="diff" onchange="Difficult()">
+                <option value="all">All</option>
+                <option value="1">★1</option>
+                <option value="2">★2</option>
+                <option value="3">★3</option>
+                <option value="4">★4</option>
+                <option value="5">★5</option>
+                <option value="6">★6</option>
+                <option value="7">★7</option>
+            </select>
+        </div>
+        <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for names..">
+        <table class="table table-bordered table-striped" id="myTable">
+            <thead>
+                <tr>
+                    <th width="3%" class="text-center"></th>
+                    <th>問題名</th>
+                    <th width="10%" class="text-right no-break">実行時間制限</th>
+                    <th width="10%" class="text-right no-break">メモリ制限</th>
+                    <th width="5%"></th>
+                </tr>
+            </thead>
+            <tbody>
+                
+                    <tr>
+                        <td class="text-center no-break"><a target="_blank" rel="noopener noreferrer" href="https://atcoder.jp/contests/typical90/tasks/typical90_a">001</a></td>
+                        <td><a target="_blank" rel="noopener noreferrer" href="https://atcoder.jp/contests/typical90/tasks/typical90_a">Yokan Party（★4）</a></td>
+                        <td class="text-right">2 sec</td>
+                        <td class="text-right">1024 MB</td>
+                        
+                            <td class="no-break text-center">
+                                
+                                    <a target="_blank" rel="noopener noreferrer" href="https://atcoder.jp/contests/typical90/submit?taskScreenName=typical90_a">提出</a>
+                                
+                                
+                            </td>
+                        
+                    </tr>
+                
+                    <tr>
+                        <td class="text-center no-break"><a target="_blank" rel="noopener noreferrer" href="https://atcoder.jp/contests/typical90/tasks/typical90_b">002</a></td>
+                        <td><a target="_blank" rel="noopener noreferrer" href="https://atcoder.jp/contests/typical90/tasks/typical90_b">Encyclopedia of Parentheses（★3）</a></td>
+                        <td class="text-right">2 sec</td>
+                        <td class="text-right">1024 MB</td>
+                        
+                            <td class="no-break text-center">
+                                
+                                    <a target="_blank" rel="noopener noreferrer" href="https://atcoder.jp/contests/typical90/submit?taskScreenName=typical90_b">提出</a>
+                                
+                                
+                            </td>
+                        
+                    </tr>
+                
+                    <tr>
+                        <td class="text-center no-break"><a target="_blank" rel="noopener noreferrer" href="https://atcoder.jp/contests/typical90/tasks/typical90_c">003</a></td>
+                        <td><a target="_blank" rel="noopener noreferrer" href="https://atcoder.jp/contests/typical90/tasks/typical90_c">Longest Circular Road（★4）</a></td>
+                        <td class="text-right">2 sec</td>
+                        <td class="text-right">1024 MB</td>
+                        
+                            <td class="no-break text-center">
+                                
+                                    <a target="_blank" rel="noopener noreferrer" href="https://atcoder.jp/contests/typical90/submit?taskScreenName=typical90_c">提出</a>
+                                
+                                
+                            </td>
+                        
+                    </tr>
+                
+                    <tr>
+                        <td class="text-center no-break"><a target="_blank" rel="noopener noreferrer" href="https://atcoder.jp/contests/typical90/tasks/typical90_d">004</a></td>
+                        <td><a target="_blank" rel="noopener noreferrer" href="https://atcoder.jp/contests/typical90/tasks/typical90_d">Cross Sum（★2）</a></td>
+                        <td class="text-right">5 sec</td>
+                        <td class="text-right">1024 MB</td>
+                        
+                            <td class="no-break text-center">
+                                
+                                    <a target="_blank" rel="noopener noreferrer" href="https://atcoder.jp/contests/typical90/submit?taskScreenName=typical90_d">提出</a>
+                                
+                                
+                            </td>
+                        
+                    </tr>
+                
+                    <tr>
+                        <td class="text-center no-break"><a target="_blank" rel="noopener noreferrer" href="https://atcoder.jp/contests/typical90/tasks/typical90_e">005</a></td>
+                        <td><a target="_blank" rel="noopener noreferrer" href="https://atcoder.jp/contests/typical90/tasks/typical90_e">Restricted Digits（★7）</a></td>
+                        <td class="text-right">5 sec</td>
+                        <td class="text-right">1024 MB</td>
+                        
+                            <td class="no-break text-center">
+                                
+                                    <a target="_blank" rel="noopener noreferrer" href="https://atcoder.jp/contests/typical90/submit?taskScreenName=typical90_e">提出</a>
+                                
+                                
+                            </td>
+                        
+                    </tr>
+                
+                    <tr>
+                        <td class="text-center no-break"><a target="_blank" rel="noopener noreferrer" href="https://atcoder.jp/contests/typical90/tasks/typical90_f">006</a></td>
+                        <td><a target="_blank" rel="noopener noreferrer" href="https://atcoder.jp/contests/typical90/tasks/typical90_f">Smallest Subsequence（★5）</a></td>
+                        <td class="text-right">2 sec</td>
+                        <td class="text-right">1024 MB</td>
+                        
+                            <td class="no-break text-center">
+                                
+                                    <a target="_blank" rel="noopener noreferrer" href="https://atcoder.jp/contests/typical90/submit?taskScreenName=typical90_f">提出</a>
+                                
+                                
+                            </td>
+                        
+                    </tr>
+                
+                    <tr>
+                        <td class="text-center no-break"><a target="_blank" rel="noopener noreferrer" href="https://atcoder.jp/contests/typical90/tasks/typical90_g">007</a></td>
+                        <td><a target="_blank" rel="noopener noreferrer" href="https://atcoder.jp/contests/typical90/tasks/typical90_g">CP Classes（★3）</a></td>
+                        <td class="text-right">3 sec</td>
+                        <td class="text-right">1024 MB</td>
+                        
+                            <td class="no-break text-center">
+                                
+                                    <a target="_blank" rel="noopener noreferrer" href="https://atcoder.jp/contests/typical90/submit?taskScreenName=typical90_g">提出</a>
+                                
+                                
+                            </td>
+                        
+                    </tr>
+                
+                    <tr>
+                        <td class="text-center no-break"><a target="_blank" rel="noopener noreferrer" href="https://atcoder.jp/contests/typical90/tasks/typical90_h">008</a></td>
+                        <td><a target="_blank" rel="noopener noreferrer" href="https://atcoder.jp/contests/typical90/tasks/typical90_h">AtCounter（★4）</a></td>
+                        <td class="text-right">2 sec</td>
+                        <td class="text-right">1024 MB</td>
+                        
+                            <td class="no-break text-center">
+                                
+                                    <a target="_blank" rel="noopener noreferrer" href="https://atcoder.jp/contests/typical90/submit?taskScreenName=typical90_h">提出</a>
+                                
+                                
+                            </td>
+                        
+                    </tr>
+                
+                    <tr>
+                        <td class="text-center no-break"><a target="_blank" rel="noopener noreferrer" href="https://atcoder.jp/contests/typical90/tasks/typical90_i">009</a></td>
+                        <td><a target="_blank" rel="noopener noreferrer" href="https://atcoder.jp/contests/typical90/tasks/typical90_i">Three Point Angle（★6）</a></td>
+                        <td class="text-right">3 sec</td>
+                        <td class="text-right">1024 MB</td>
+                        
+                            <td class="no-break text-center">
+                                
+                                    <a target="_blank" rel="noopener noreferrer" href="https://atcoder.jp/contests/typical90/submit?taskScreenName=typical90_i">提出</a>
+                                
+                                
+                            </td>
+                        
+                    </tr>
+                
+                    <tr>
+                        <td class="text-center no-break"><a target="_blank" rel="noopener noreferrer" href="https://atcoder.jp/contests/typical90/tasks/typical90_j">010</a></td>
+                        <td><a target="_blank" rel="noopener noreferrer" href="https://atcoder.jp/contests/typical90/tasks/typical90_j">Score Sum Queries（★2）</a></td>
+                        <td class="text-right">2 sec</td>
+                        <td class="text-right">1024 MB</td>
+                        
+                            <td class="no-break text-center">
+                                
+                                    <a target="_blank" rel="noopener noreferrer" href="https://atcoder.jp/contests/typical90/submit?taskScreenName=typical90_j">提出</a>
+                                
+                                
+                            </td>
+                        
+                    </tr>
+                
+                    <tr>
+                        <td class="text-center no-break"><a target="_blank" rel="noopener noreferrer" href="https://atcoder.jp/contests/typical90/tasks/typical90_k">011</a></td>
+                        <td><a target="_blank" rel="noopener noreferrer" href="https://atcoder.jp/contests/typical90/tasks/typical90_k">Gravy Jobs（★6）</a></td>
+                        <td class="text-right">2 sec</td>
+                        <td class="text-right">1024 MB</td>
+                        
+                            <td class="no-break text-center">
+                                
+                                    <a target="_blank" rel="noopener noreferrer" href="https://atcoder.jp/contests/typical90/submit?taskScreenName=typical90_k">提出</a>
+                                
+                                
+                            </td>
+                        
+                    </tr>
+                
+                    <tr>
+                        <td class="text-center no-break"><a target="_blank" rel="noopener noreferrer" href="https://atcoder.jp/contests/typical90/tasks/typical90_l">012</a></td>
+                        <td><a target="_blank" rel="noopener noreferrer" href="https://atcoder.jp/contests/typical90/tasks/typical90_l">Red Painting（★4）</a></td>
+                        <td class="text-right">2 sec</td>
+                        <td class="text-right">1024 MB</td>
+                        
+                            <td class="no-break text-center">
+                                
+                                    <a target="_blank" rel="noopener noreferrer" href="https://atcoder.jp/contests/typical90/submit?taskScreenName=typical90_l">提出</a>
+                                
+                                
+                            </td>
+                        
+                    </tr>
+                
+                    <tr>
+                        <td class="text-center no-break"><a target="_blank" rel="noopener noreferrer" href="https://atcoder.jp/contests/typical90/tasks/typical90_m">013</a></td>
+                        <td><a target="_blank" rel="noopener noreferrer" href="https://atcoder.jp/contests/typical90/tasks/typical90_m">Passing（★5）</a></td>
+                        <td class="text-right">2 sec</td>
+                        <td class="text-right">1024 MB</td>
+                        
+                            <td class="no-break text-center">
+                                
+                                    <a target="_blank" rel="noopener noreferrer" href="https://atcoder.jp/contests/typical90/submit?taskScreenName=typical90_m">提出</a>
+                                
+                                
+                            </td>
+                        
+                    </tr>
+                
+                    <tr>
+                        <td class="text-center no-break"><a target="_blank" rel="noopener noreferrer" href="https://atcoder.jp/contests/typical90/tasks/typical90_n">014</a></td>
+                        <td><a target="_blank" rel="noopener noreferrer" href="https://atcoder.jp/contests/typical90/tasks/typical90_n">We Used to Sing a Song Together（★3）</a></td>
+                        <td class="text-right">2 sec</td>
+                        <td class="text-right">1024 MB</td>
+                        
+                            <td class="no-break text-center">
+                                
+                                    <a target="_blank" rel="noopener noreferrer" href="https://atcoder.jp/contests/typical90/submit?taskScreenName=typical90_n">提出</a>
+                                
+                                
+                            </td>
+                        
+                    </tr>
+                
+                    <tr>
+                        <td class="text-center no-break"><a target="_blank" rel="noopener noreferrer" href="https://atcoder.jp/contests/typical90/tasks/typical90_o">015</a></td>
+                        <td><a target="_blank" rel="noopener noreferrer" href="https://atcoder.jp/contests/typical90/tasks/typical90_o">Don't be too close（★6）</a></td>
+                        <td class="text-right">2 sec</td>
+                        <td class="text-right">1024 MB</td>
+                        
+                            <td class="no-break text-center">
+                                
+                                    <a target="_blank" rel="noopener noreferrer" href="https://atcoder.jp/contests/typical90/submit?taskScreenName=typical90_o">提出</a>
+                                
+                                
+                            </td>
+                        
+                    </tr>
+                
+                    <tr>
+                        <td class="text-center no-break"><a target="_blank" rel="noopener noreferrer" href="https://atcoder.jp/contests/typical90/tasks/typical90_p">016</a></td>
+                        <td><a target="_blank" rel="noopener noreferrer" href="https://atcoder.jp/contests/typical90/tasks/typical90_p">Minimum Coins（★3）</a></td>
+                        <td class="text-right">2 sec</td>
+                        <td class="text-right">1024 MB</td>
+                        
+                            <td class="no-break text-center">
+                                
+                                    <a target="_blank" rel="noopener noreferrer" href="https://atcoder.jp/contests/typical90/submit?taskScreenName=typical90_p">提出</a>
+                                
+                                
+                            </td>
+                        
+                    </tr>
+                
+                    <tr>
+                        <td class="text-center no-break"><a target="_blank" rel="noopener noreferrer" href="https://atcoder.jp/contests/typical90/tasks/typical90_q">017</a></td>
+                        <td><a target="_blank" rel="noopener noreferrer" href="https://atcoder.jp/contests/typical90/tasks/typical90_q">Crossing Segments（★7）</a></td>
+                        <td class="text-right">2 sec</td>
+                        <td class="text-right">1024 MB</td>
+                        
+                            <td class="no-break text-center">
+                                
+                                    <a target="_blank" rel="noopener noreferrer" href="https://atcoder.jp/contests/typical90/submit?taskScreenName=typical90_q">提出</a>
+                                
+                                
+                            </td>
+                        
+                    </tr>
+                
+                    <tr>
+                        <td class="text-center no-break"><a target="_blank" rel="noopener noreferrer" href="https://atcoder.jp/contests/typical90/tasks/typical90_r">018</a></td>
+                        <td><a target="_blank" rel="noopener noreferrer" href="https://atcoder.jp/contests/typical90/tasks/typical90_r">Statue of Chokudai（★3）</a></td>
+                        <td class="text-right">2 sec</td>
+                        <td class="text-right">1024 MB</td>
+                        
+                            <td class="no-break text-center">
+                                
+                                    <a target="_blank" rel="noopener noreferrer" href="https://atcoder.jp/contests/typical90/submit?taskScreenName=typical90_r">提出</a>
+                                
+                                
+                            </td>
+                        
+                    </tr>
+                
+                    <tr>
+                        <td class="text-center no-break"><a target="_blank" rel="noopener noreferrer" href="https://atcoder.jp/contests/typical90/tasks/typical90_s">019</a></td>
+                        <td><a target="_blank" rel="noopener noreferrer" href="https://atcoder.jp/contests/typical90/tasks/typical90_s">Pick Two（★6）</a></td>
+                        <td class="text-right">2 sec</td>
+                        <td class="text-right">1024 MB</td>
+                        
+                            <td class="no-break text-center">
+                                
+                                    <a target="_blank" rel="noopener noreferrer" href="https://atcoder.jp/contests/typical90/submit?taskScreenName=typical90_s">提出</a>
+                                
+                                
+                            </td>
+                        
+                    </tr>
+                
+                    <tr>
+                        <td class="text-center no-break"><a target="_blank" rel="noopener noreferrer" href="https://atcoder.jp/contests/typical90/tasks/typical90_t">020</a></td>
+                        <td><a target="_blank" rel="noopener noreferrer" href="https://atcoder.jp/contests/typical90/tasks/typical90_t">Log Inequality（★3）</a></td>
+                        <td class="text-right">2 sec</td>
+                        <td class="text-right">1024 MB</td>
+                        
+                            <td class="no-break text-center">
+                                
+                                    <a target="_blank" rel="noopener noreferrer" href="https://atcoder.jp/contests/typical90/submit?taskScreenName=typical90_t">提出</a>
+                                
+                                
+                            </td>
+                        
+                    </tr>
+                
+                    <tr>
+                        <td class="text-center no-break"><a target="_blank" rel="noopener noreferrer" href="https://atcoder.jp/contests/typical90/tasks/typical90_u">021</a></td>
+                        <td><a target="_blank" rel="noopener noreferrer" href="https://atcoder.jp/contests/typical90/tasks/typical90_u">Come Back in One Piece（★5）</a></td>
+                        <td class="text-right">2 sec</td>
+                        <td class="text-right">1024 MB</td>
+                        
+                            <td class="no-break text-center">
+                                
+                                    <a target="_blank" rel="noopener noreferrer" href="https://atcoder.jp/contests/typical90/submit?taskScreenName=typical90_u">提出</a>
+                                
+                                
+                            </td>
+                        
+                    </tr>
+                
+                    <tr>
+                        <td class="text-center no-break"><a target="_blank" rel="noopener noreferrer" href="https://atcoder.jp/contests/typical90/tasks/typical90_v">022</a></td>
+                        <td><a target="_blank" rel="noopener noreferrer" href="https://atcoder.jp/contests/typical90/tasks/typical90_v">Cubic Cake（★2）</a></td>
+                        <td class="text-right">2 sec</td>
+                        <td class="text-right">1024 MB</td>
+                        
+                            <td class="no-break text-center">
+                                
+                                    <a target="_blank" rel="noopener noreferrer" href="https://atcoder.jp/contests/typical90/submit?taskScreenName=typical90_v">提出</a>
+                                
+                                
+                            </td>
+                        
+                    </tr>
+                
+                    <tr>
+                        <td class="text-center no-break"><a target="_blank" rel="noopener noreferrer" href="https://atcoder.jp/contests/typical90/tasks/typical90_w">023</a></td>
+                        <td><a target="_blank" rel="noopener noreferrer" href="https://atcoder.jp/contests/typical90/tasks/typical90_w">Avoid War（★7）</a></td>
+                        <td class="text-right">8 sec</td>
+                        <td class="text-right">2048 MB</td>
+                        
+                            <td class="no-break text-center">
+                                
+                                    <a target="_blank" rel="noopener noreferrer" href="https://atcoder.jp/contests/typical90/submit?taskScreenName=typical90_w">提出</a>
+                                
+                                
+                            </td>
+                        
+                    </tr>
+                
+                    <tr>
+                        <td class="text-center no-break"><a target="_blank" rel="noopener noreferrer" href="https://atcoder.jp/contests/typical90/tasks/typical90_x">024</a></td>
+                        <td><a target="_blank" rel="noopener noreferrer" href="https://atcoder.jp/contests/typical90/tasks/typical90_x">Select +／- One（★2）</a></td>
+                        <td class="text-right">2 sec</td>
+                        <td class="text-right">1024 MB</td>
+                        
+                            <td class="no-break text-center">
+                                
+                                    <a target="_blank" rel="noopener noreferrer" href="https://atcoder.jp/contests/typical90/submit?taskScreenName=typical90_x">提出</a>
+                                
+                                
+                            </td>
+                        
+                    </tr>
+                
+                    <tr>
+                        <td class="text-center no-break"><a target="_blank" rel="noopener noreferrer" href="https://atcoder.jp/contests/typical90/tasks/typical90_y">025</a></td>
+                        <td><a target="_blank" rel="noopener noreferrer" href="https://atcoder.jp/contests/typical90/tasks/typical90_y">Digit Product Equation（★7）</a></td>
+                        <td class="text-right">2 sec</td>
+                        <td class="text-right">1024 MB</td>
+                        
+                            <td class="no-break text-center">
+                                
+                                    <a target="_blank" rel="noopener noreferrer" href="https://atcoder.jp/contests/typical90/submit?taskScreenName=typical90_y">提出</a>
+                                
+                                
+                            </td>
+                        
+                    </tr>
+                
+                    <tr>
+                        <td class="text-center no-break"><a target="_blank" rel="noopener noreferrer" href="https://atcoder.jp/contests/typical90/tasks/typical90_z">026</a></td>
+                        <td><a target="_blank" rel="noopener noreferrer" href="https://atcoder.jp/contests/typical90/tasks/typical90_z">Independent Set on a Tree（★4）</a></td>
+                        <td class="text-right">2 sec</td>
+                        <td class="text-right">1024 MB</td>
+                        
+                            <td class="no-break text-center">
+                                
+                                    <a target="_blank" rel="noopener noreferrer" href="https://atcoder.jp/contests/typical90/submit?taskScreenName=typical90_z">提出</a>
+                                
+                                
+                            </td>
+                        
+                    </tr>
+                
+                    <tr>
+                        <td class="text-center no-break"><a target="_blank" rel="noopener noreferrer" href="https://atcoder.jp/contests/typical90/tasks/typical90_aa">027</a></td>
+                        <td><a target="_blank" rel="noopener noreferrer" href="https://atcoder.jp/contests/typical90/tasks/typical90_aa">Sign Up Requests （★2）</a></td>
+                        <td class="text-right">1 sec</td>
+                        <td class="text-right">1024 MB</td>
+                        
+                            <td class="no-break text-center">
+                                
+                                    <a target="_blank" rel="noopener noreferrer" href="https://atcoder.jp/contests/typical90/submit?taskScreenName=typical90_aa">提出</a>
+                                
+                                
+                            </td>
+                        
+                    </tr>
+                
+                    <tr>
+                        <td class="text-center no-break"><a target="_blank" rel="noopener noreferrer" href="https://atcoder.jp/contests/typical90/tasks/typical90_ab">028</a></td>
+                        <td><a target="_blank" rel="noopener noreferrer" href="https://atcoder.jp/contests/typical90/tasks/typical90_ab">Cluttered Paper（★4）</a></td>
+                        <td class="text-right">2 sec</td>
+                        <td class="text-right">1024 MB</td>
+                        
+                            <td class="no-break text-center">
+                                
+                                    <a target="_blank" rel="noopener noreferrer" href="https://atcoder.jp/contests/typical90/submit?taskScreenName=typical90_ab">提出</a>
+                                
+                                
+                            </td>
+                        
+                    </tr>
+                
+                    <tr>
+                        <td class="text-center no-break"><a target="_blank" rel="noopener noreferrer" href="https://atcoder.jp/contests/typical90/tasks/typical90_ac">029</a></td>
+                        <td><a target="_blank" rel="noopener noreferrer" href="https://atcoder.jp/contests/typical90/tasks/typical90_ac">Long Bricks（★5）</a></td>
+                        <td class="text-right">4 sec</td>
+                        <td class="text-right">1024 MB</td>
+                        
+                            <td class="no-break text-center">
+                                
+                                    <a target="_blank" rel="noopener noreferrer" href="https://atcoder.jp/contests/typical90/submit?taskScreenName=typical90_ac">提出</a>
+                                
+                                
+                            </td>
+                        
+                    </tr>
+                
+                    <tr>
+                        <td class="text-center no-break"><a target="_blank" rel="noopener noreferrer" href="https://atcoder.jp/contests/typical90/tasks/typical90_ad">030</a></td>
+                        <td><a target="_blank" rel="noopener noreferrer" href="https://atcoder.jp/contests/typical90/tasks/typical90_ad">K Factors（★5）</a></td>
+                        <td class="text-right">2 sec</td>
+                        <td class="text-right">1024 MB</td>
+                        
+                            <td class="no-break text-center">
+                                
+                                    <a target="_blank" rel="noopener noreferrer" href="https://atcoder.jp/contests/typical90/submit?taskScreenName=typical90_ad">提出</a>
+                                
+                                
+                            </td>
+                        
+                    </tr>
+                
+                    <tr>
+                        <td class="text-center no-break"><a target="_blank" rel="noopener noreferrer" href="https://atcoder.jp/contests/typical90/tasks/typical90_ae">031</a></td>
+                        <td><a target="_blank" rel="noopener noreferrer" href="https://atcoder.jp/contests/typical90/tasks/typical90_ae">VS AtCoder（★6）</a></td>
+                        <td class="text-right">3 sec</td>
+                        <td class="text-right">1024 MB</td>
+                        
+                            <td class="no-break text-center">
+                                
+                                    <a target="_blank" rel="noopener noreferrer" href="https://atcoder.jp/contests/typical90/submit?taskScreenName=typical90_ae">提出</a>
+                                
+                                
+                            </td>
+                        
+                    </tr>
+                
+                    <tr>
+                        <td class="text-center no-break"><a target="_blank" rel="noopener noreferrer" href="https://atcoder.jp/contests/typical90/tasks/typical90_af">032</a></td>
+                        <td><a target="_blank" rel="noopener noreferrer" href="https://atcoder.jp/contests/typical90/tasks/typical90_af">AtCoder Ekiden（★3）</a></td>
+                        <td class="text-right">5 sec</td>
+                        <td class="text-right">1024 MB</td>
+                        
+                            <td class="no-break text-center">
+                                
+                                    <a target="_blank" rel="noopener noreferrer" href="https://atcoder.jp/contests/typical90/submit?taskScreenName=typical90_af">提出</a>
+                                
+                                
+                            </td>
+                        
+                    </tr>
+                
+                    <tr>
+                        <td class="text-center no-break"><a target="_blank" rel="noopener noreferrer" href="https://atcoder.jp/contests/typical90/tasks/typical90_ag">033</a></td>
+                        <td><a target="_blank" rel="noopener noreferrer" href="https://atcoder.jp/contests/typical90/tasks/typical90_ag">Not Too Bright（★2）</a></td>
+                        <td class="text-right">1 sec</td>
+                        <td class="text-right">1024 MB</td>
+                        
+                            <td class="no-break text-center">
+                                
+                                    <a target="_blank" rel="noopener noreferrer" href="https://atcoder.jp/contests/typical90/submit?taskScreenName=typical90_ag">提出</a>
+                                
+                                
+                            </td>
+                        
+                    </tr>
+                
+                    <tr>
+                        <td class="text-center no-break"><a target="_blank" rel="noopener noreferrer" href="https://atcoder.jp/contests/typical90/tasks/typical90_ah">034</a></td>
+                        <td><a target="_blank" rel="noopener noreferrer" href="https://atcoder.jp/contests/typical90/tasks/typical90_ah">There are few types of elements（★4）</a></td>
+                        <td class="text-right">2 sec</td>
+                        <td class="text-right">1024 MB</td>
+                        
+                            <td class="no-break text-center">
+                                
+                                    <a target="_blank" rel="noopener noreferrer" href="https://atcoder.jp/contests/typical90/submit?taskScreenName=typical90_ah">提出</a>
+                                
+                                
+                            </td>
+                        
+                    </tr>
+                
+                    <tr>
+                        <td class="text-center no-break"><a target="_blank" rel="noopener noreferrer" href="https://atcoder.jp/contests/typical90/tasks/typical90_ai">035</a></td>
+                        <td><a target="_blank" rel="noopener noreferrer" href="https://atcoder.jp/contests/typical90/tasks/typical90_ai">Preserve Connectivity（★7）</a></td>
+                        <td class="text-right">2 sec</td>
+                        <td class="text-right">1024 MB</td>
+                        
+                            <td class="no-break text-center">
+                                
+                                    <a target="_blank" rel="noopener noreferrer" href="https://atcoder.jp/contests/typical90/submit?taskScreenName=typical90_ai">提出</a>
+                                
+                                
+                            </td>
+                        
+                    </tr>
+                
+                    <tr>
+                        <td class="text-center no-break"><a target="_blank" rel="noopener noreferrer" href="https://atcoder.jp/contests/typical90/tasks/typical90_aj">036</a></td>
+                        <td><a target="_blank" rel="noopener noreferrer" href="https://atcoder.jp/contests/typical90/tasks/typical90_aj">Max Manhattan Distance（★5）</a></td>
+                        <td class="text-right">2 sec</td>
+                        <td class="text-right">1024 MB</td>
+                        
+                            <td class="no-break text-center">
+                                
+                                    <a target="_blank" rel="noopener noreferrer" href="https://atcoder.jp/contests/typical90/submit?taskScreenName=typical90_aj">提出</a>
+                                
+                                
+                            </td>
+                        
+                    </tr>
+                
+                    <tr>
+                        <td class="text-center no-break"><a target="_blank" rel="noopener noreferrer" href="https://atcoder.jp/contests/typical90/tasks/typical90_ak">037</a></td>
+                        <td><a target="_blank" rel="noopener noreferrer" href="https://atcoder.jp/contests/typical90/tasks/typical90_ak">Don't Leave the Spice（★5）</a></td>
+                        <td class="text-right">2 sec</td>
+                        <td class="text-right">1024 MB</td>
+                        
+                            <td class="no-break text-center">
+                                
+                                    <a target="_blank" rel="noopener noreferrer" href="https://atcoder.jp/contests/typical90/submit?taskScreenName=typical90_ak">提出</a>
+                                
+                                
+                            </td>
+                        
+                    </tr>
+                
+                    <tr>
+                        <td class="text-center no-break"><a target="_blank" rel="noopener noreferrer" href="https://atcoder.jp/contests/typical90/tasks/typical90_al">038</a></td>
+                        <td><a target="_blank" rel="noopener noreferrer" href="https://atcoder.jp/contests/typical90/tasks/typical90_al">Large LCM（★3）</a></td>
+                        <td class="text-right">2 sec</td>
+                        <td class="text-right">1024 MB</td>
+                        
+                            <td class="no-break text-center">
+                                
+                                    <a target="_blank" rel="noopener noreferrer" href="https://atcoder.jp/contests/typical90/submit?taskScreenName=typical90_al">提出</a>
+                                
+                                
+                            </td>
+                        
+                    </tr>
+                
+                    <tr>
+                        <td class="text-center no-break"><a target="_blank" rel="noopener noreferrer" href="https://atcoder.jp/contests/typical90/tasks/typical90_am">039</a></td>
+                        <td><a target="_blank" rel="noopener noreferrer" href="https://atcoder.jp/contests/typical90/tasks/typical90_am">Tree Distance（★5）</a></td>
+                        <td class="text-right">2 sec</td>
+                        <td class="text-right">1024 MB</td>
+                        
+                            <td class="no-break text-center">
+                                
+                                    <a target="_blank" rel="noopener noreferrer" href="https://atcoder.jp/contests/typical90/submit?taskScreenName=typical90_am">提出</a>
+                                
+                                
+                            </td>
+                        
+                    </tr>
+                
+                    <tr>
+                        <td class="text-center no-break"><a target="_blank" rel="noopener noreferrer" href="https://atcoder.jp/contests/typical90/tasks/typical90_an">040</a></td>
+                        <td><a target="_blank" rel="noopener noreferrer" href="https://atcoder.jp/contests/typical90/tasks/typical90_an">Get More Money（★7）</a></td>
+                        <td class="text-right">2 sec</td>
+                        <td class="text-right">1024 MB</td>
+                        
+                            <td class="no-break text-center">
+                                
+                                    <a target="_blank" rel="noopener noreferrer" href="https://atcoder.jp/contests/typical90/submit?taskScreenName=typical90_an">提出</a>
+                                
+                                
+                            </td>
+                        
+                    </tr>
+                
+                    <tr>
+                        <td class="text-center no-break"><a target="_blank" rel="noopener noreferrer" href="https://atcoder.jp/contests/typical90/tasks/typical90_ao">041</a></td>
+                        <td><a target="_blank" rel="noopener noreferrer" href="https://atcoder.jp/contests/typical90/tasks/typical90_ao">Piles in AtCoder Farm（★7）</a></td>
+                        <td class="text-right">2 sec</td>
+                        <td class="text-right">1024 MB</td>
+                        
+                            <td class="no-break text-center">
+                                
+                                    <a target="_blank" rel="noopener noreferrer" href="https://atcoder.jp/contests/typical90/submit?taskScreenName=typical90_ao">提出</a>
+                                
+                                
+                            </td>
+                        
+                    </tr>
+                
+                    <tr>
+                        <td class="text-center no-break"><a target="_blank" rel="noopener noreferrer" href="https://atcoder.jp/contests/typical90/tasks/typical90_ap">042</a></td>
+                        <td><a target="_blank" rel="noopener noreferrer" href="https://atcoder.jp/contests/typical90/tasks/typical90_ap">Multiple of 9（★4）</a></td>
+                        <td class="text-right">2 sec</td>
+                        <td class="text-right">1024 MB</td>
+                        
+                            <td class="no-break text-center">
+                                
+                                    <a target="_blank" rel="noopener noreferrer" href="https://atcoder.jp/contests/typical90/submit?taskScreenName=typical90_ap">提出</a>
+                                
+                                
+                            </td>
+                        
+                    </tr>
+                
+                    <tr>
+                        <td class="text-center no-break"><a target="_blank" rel="noopener noreferrer" href="https://atcoder.jp/contests/typical90/tasks/typical90_aq">043</a></td>
+                        <td><a target="_blank" rel="noopener noreferrer" href="https://atcoder.jp/contests/typical90/tasks/typical90_aq">Maze Challenge with Lack of Sleep（★4）</a></td>
+                        <td class="text-right">2 sec</td>
+                        <td class="text-right">1024 MB</td>
+                        
+                            <td class="no-break text-center">
+                                
+                                    <a target="_blank" rel="noopener noreferrer" href="https://atcoder.jp/contests/typical90/submit?taskScreenName=typical90_aq">提出</a>
+                                
+                                
+                            </td>
+                        
+                    </tr>
+                
+                    <tr>
+                        <td class="text-center no-break"><a target="_blank" rel="noopener noreferrer" href="https://atcoder.jp/contests/typical90/tasks/typical90_ar">044</a></td>
+                        <td><a target="_blank" rel="noopener noreferrer" href="https://atcoder.jp/contests/typical90/tasks/typical90_ar">Shift and Swapping（★3）</a></td>
+                        <td class="text-right">2 sec</td>
+                        <td class="text-right">1024 MB</td>
+                        
+                            <td class="no-break text-center">
+                                
+                                    <a target="_blank" rel="noopener noreferrer" href="https://atcoder.jp/contests/typical90/submit?taskScreenName=typical90_ar">提出</a>
+                                
+                                
+                            </td>
+                        
+                    </tr>
+                
+                    <tr>
+                        <td class="text-center no-break"><a target="_blank" rel="noopener noreferrer" href="https://atcoder.jp/contests/typical90/tasks/typical90_as">045</a></td>
+                        <td><a target="_blank" rel="noopener noreferrer" href="https://atcoder.jp/contests/typical90/tasks/typical90_as">Simple Grouping（★6）</a></td>
+                        <td class="text-right">2 sec</td>
+                        <td class="text-right">1024 MB</td>
+                        
+                            <td class="no-break text-center">
+                                
+                                    <a target="_blank" rel="noopener noreferrer" href="https://atcoder.jp/contests/typical90/submit?taskScreenName=typical90_as">提出</a>
+                                
+                                
+                            </td>
+                        
+                    </tr>
+                
+                    <tr>
+                        <td class="text-center no-break"><a target="_blank" rel="noopener noreferrer" href="https://atcoder.jp/contests/typical90/tasks/typical90_at">046</a></td>
+                        <td><a target="_blank" rel="noopener noreferrer" href="https://atcoder.jp/contests/typical90/tasks/typical90_at">I Love 46（★3）</a></td>
+                        <td class="text-right">2 sec</td>
+                        <td class="text-right">1024 MB</td>
+                        
+                            <td class="no-break text-center">
+                                
+                                    <a target="_blank" rel="noopener noreferrer" href="https://atcoder.jp/contests/typical90/submit?taskScreenName=typical90_at">提出</a>
+                                
+                                
+                            </td>
+                        
+                    </tr>
+                
+                    <tr>
+                        <td class="text-center no-break"><a target="_blank" rel="noopener noreferrer" href="https://atcoder.jp/contests/typical90/tasks/typical90_au">047</a></td>
+                        <td><a target="_blank" rel="noopener noreferrer" href="https://atcoder.jp/contests/typical90/tasks/typical90_au">Monochromatic Diagonal（★7）</a></td>
+                        <td class="text-right">2 sec</td>
+                        <td class="text-right">1024 MB</td>
+                        
+                            <td class="no-break text-center">
+                                
+                                    <a target="_blank" rel="noopener noreferrer" href="https://atcoder.jp/contests/typical90/submit?taskScreenName=typical90_au">提出</a>
+                                
+                                
+                            </td>
+                        
+                    </tr>
+                
+                    <tr>
+                        <td class="text-center no-break"><a target="_blank" rel="noopener noreferrer" href="https://atcoder.jp/contests/typical90/tasks/typical90_av">048</a></td>
+                        <td><a target="_blank" rel="noopener noreferrer" href="https://atcoder.jp/contests/typical90/tasks/typical90_av">I will not drop out（★3）</a></td>
+                        <td class="text-right">2 sec</td>
+                        <td class="text-right">1024 MB</td>
+                        
+                            <td class="no-break text-center">
+                                
+                                    <a target="_blank" rel="noopener noreferrer" href="https://atcoder.jp/contests/typical90/submit?taskScreenName=typical90_av">提出</a>
+                                
+                                
+                            </td>
+                        
+                    </tr>
+                
+                    <tr>
+                        <td class="text-center no-break"><a target="_blank" rel="noopener noreferrer" href="https://atcoder.jp/contests/typical90/tasks/typical90_aw">049</a></td>
+                        <td><a target="_blank" rel="noopener noreferrer" href="https://atcoder.jp/contests/typical90/tasks/typical90_aw">Flip Digits 2（★6）</a></td>
+                        <td class="text-right">2 sec</td>
+                        <td class="text-right">1024 MB</td>
+                        
+                            <td class="no-break text-center">
+                                
+                                    <a target="_blank" rel="noopener noreferrer" href="https://atcoder.jp/contests/typical90/submit?taskScreenName=typical90_aw">提出</a>
+                                
+                                
+                            </td>
+                        
+                    </tr>
+                
+                    <tr>
+                        <td class="text-center no-break"><a target="_blank" rel="noopener noreferrer" href="https://atcoder.jp/contests/typical90/tasks/typical90_ax">050</a></td>
+                        <td><a target="_blank" rel="noopener noreferrer" href="https://atcoder.jp/contests/typical90/tasks/typical90_ax">Stair Jump（★3）</a></td>
+                        <td class="text-right">2 sec</td>
+                        <td class="text-right">1024 MB</td>
+                        
+                            <td class="no-break text-center">
+                                
+                                    <a target="_blank" rel="noopener noreferrer" href="https://atcoder.jp/contests/typical90/submit?taskScreenName=typical90_ax">提出</a>
+                                
+                                
+                            </td>
+                        
+                    </tr>
+                
+                    <tr>
+                        <td class="text-center no-break"><a target="_blank" rel="noopener noreferrer" href="https://atcoder.jp/contests/typical90/tasks/typical90_ay">051</a></td>
+                        <td><a target="_blank" rel="noopener noreferrer" href="https://atcoder.jp/contests/typical90/tasks/typical90_ay">Typical Shop（★5）</a></td>
+                        <td class="text-right">3 sec</td>
+                        <td class="text-right">1024 MB</td>
+                        
+                            <td class="no-break text-center">
+                                
+                                    <a target="_blank" rel="noopener noreferrer" href="https://atcoder.jp/contests/typical90/submit?taskScreenName=typical90_ay">提出</a>
+                                
+                                
+                            </td>
+                        
+                    </tr>
+                
+                    <tr>
+                        <td class="text-center no-break"><a target="_blank" rel="noopener noreferrer" href="https://atcoder.jp/contests/typical90/tasks/typical90_az">052</a></td>
+                        <td><a target="_blank" rel="noopener noreferrer" href="https://atcoder.jp/contests/typical90/tasks/typical90_az">Dice Product（★3）</a></td>
+                        <td class="text-right">2 sec</td>
+                        <td class="text-right">1024 MB</td>
+                        
+                            <td class="no-break text-center">
+                                
+                                    <a target="_blank" rel="noopener noreferrer" href="https://atcoder.jp/contests/typical90/submit?taskScreenName=typical90_az">提出</a>
+                                
+                                
+                            </td>
+                        
+                    </tr>
+                
+                    <tr>
+                        <td class="text-center no-break"><a target="_blank" rel="noopener noreferrer" href="https://atcoder.jp/contests/typical90/tasks/typical90_ba">053</a></td>
+                        <td><a target="_blank" rel="noopener noreferrer" href="https://atcoder.jp/contests/typical90/tasks/typical90_ba">Discrete Dowsing（★7）</a></td>
+                        <td class="text-right">2 sec</td>
+                        <td class="text-right">1024 MB</td>
+                        
+                            <td class="no-break text-center">
+                                
+                                    <a target="_blank" rel="noopener noreferrer" href="https://atcoder.jp/contests/typical90/submit?taskScreenName=typical90_ba">提出</a>
+                                
+                                
+                            </td>
+                        
+                    </tr>
+                
+                    <tr>
+                        <td class="text-center no-break"><a target="_blank" rel="noopener noreferrer" href="https://atcoder.jp/contests/typical90/tasks/typical90_bb">054</a></td>
+                        <td><a target="_blank" rel="noopener noreferrer" href="https://atcoder.jp/contests/typical90/tasks/typical90_bb">Takahashi Number（★6）</a></td>
+                        <td class="text-right">2 sec</td>
+                        <td class="text-right">1024 MB</td>
+                        
+                            <td class="no-break text-center">
+                                
+                                    <a target="_blank" rel="noopener noreferrer" href="https://atcoder.jp/contests/typical90/submit?taskScreenName=typical90_bb">提出</a>
+                                
+                                
+                            </td>
+                        
+                    </tr>
+                
+                    <tr>
+                        <td class="text-center no-break"><a target="_blank" rel="noopener noreferrer" href="https://atcoder.jp/contests/typical90/tasks/typical90_bc">055</a></td>
+                        <td><a target="_blank" rel="noopener noreferrer" href="https://atcoder.jp/contests/typical90/tasks/typical90_bc">Select 5（★2）</a></td>
+                        <td class="text-right">5 sec</td>
+                        <td class="text-right">1024 MB</td>
+                        
+                            <td class="no-break text-center">
+                                
+                                    <a target="_blank" rel="noopener noreferrer" href="https://atcoder.jp/contests/typical90/submit?taskScreenName=typical90_bc">提出</a>
+                                
+                                
+                            </td>
+                        
+                    </tr>
+                
+                    <tr>
+                        <td class="text-center no-break"><a target="_blank" rel="noopener noreferrer" href="https://atcoder.jp/contests/typical90/tasks/typical90_bd">056</a></td>
+                        <td><a target="_blank" rel="noopener noreferrer" href="https://atcoder.jp/contests/typical90/tasks/typical90_bd">Lucky Bag（★5）</a></td>
+                        <td class="text-right">2 sec</td>
+                        <td class="text-right">1024 MB</td>
+                        
+                            <td class="no-break text-center">
+                                
+                                    <a target="_blank" rel="noopener noreferrer" href="https://atcoder.jp/contests/typical90/submit?taskScreenName=typical90_bd">提出</a>
+                                
+                                
+                            </td>
+                        
+                    </tr>
+                
+                    <tr>
+                        <td class="text-center no-break"><a target="_blank" rel="noopener noreferrer" href="https://atcoder.jp/contests/typical90/tasks/typical90_be">057</a></td>
+                        <td><a target="_blank" rel="noopener noreferrer" href="https://atcoder.jp/contests/typical90/tasks/typical90_be">Flip Flap（★6）</a></td>
+                        <td class="text-right">2 sec</td>
+                        <td class="text-right">1024 MB</td>
+                        
+                            <td class="no-break text-center">
+                                
+                                    <a target="_blank" rel="noopener noreferrer" href="https://atcoder.jp/contests/typical90/submit?taskScreenName=typical90_be">提出</a>
+                                
+                                
+                            </td>
+                        
+                    </tr>
+                
+                    <tr>
+                        <td class="text-center no-break"><a target="_blank" rel="noopener noreferrer" href="https://atcoder.jp/contests/typical90/tasks/typical90_bf">058</a></td>
+                        <td><a target="_blank" rel="noopener noreferrer" href="https://atcoder.jp/contests/typical90/tasks/typical90_bf">Original Calculator（★4）</a></td>
+                        <td class="text-right">2 sec</td>
+                        <td class="text-right">1024 MB</td>
+                        
+                            <td class="no-break text-center">
+                                
+                                    <a target="_blank" rel="noopener noreferrer" href="https://atcoder.jp/contests/typical90/submit?taskScreenName=typical90_bf">提出</a>
+                                
+                                
+                            </td>
+                        
+                    </tr>
+                
+                    <tr>
+                        <td class="text-center no-break"><a target="_blank" rel="noopener noreferrer" href="https://atcoder.jp/contests/typical90/tasks/typical90_bg">059</a></td>
+                        <td><a target="_blank" rel="noopener noreferrer" href="https://atcoder.jp/contests/typical90/tasks/typical90_bg">Many Graph Queries（★7）</a></td>
+                        <td class="text-right">3 sec</td>
+                        <td class="text-right">1024 MB</td>
+                        
+                            <td class="no-break text-center">
+                                
+                                    <a target="_blank" rel="noopener noreferrer" href="https://atcoder.jp/contests/typical90/submit?taskScreenName=typical90_bg">提出</a>
+                                
+                                
+                            </td>
+                        
+                    </tr>
+                
+                    <tr>
+                        <td class="text-center no-break"><a target="_blank" rel="noopener noreferrer" href="https://atcoder.jp/contests/typical90/tasks/typical90_bh">060</a></td>
+                        <td><a target="_blank" rel="noopener noreferrer" href="https://atcoder.jp/contests/typical90/tasks/typical90_bh">Chimera（★5）</a></td>
+                        <td class="text-right">2 sec</td>
+                        <td class="text-right">1024 MB</td>
+                        
+                            <td class="no-break text-center">
+                                
+                                    <a target="_blank" rel="noopener noreferrer" href="https://atcoder.jp/contests/typical90/submit?taskScreenName=typical90_bh">提出</a>
+                                
+                                
+                            </td>
+                        
+                    </tr>
+                
+                    <tr>
+                        <td class="text-center no-break"><a target="_blank" rel="noopener noreferrer" href="https://atcoder.jp/contests/typical90/tasks/typical90_bi">061</a></td>
+                        <td><a target="_blank" rel="noopener noreferrer" href="https://atcoder.jp/contests/typical90/tasks/typical90_bi">Deck（★2）</a></td>
+                        <td class="text-right">2 sec</td>
+                        <td class="text-right">1024 MB</td>
+                        
+                            <td class="no-break text-center">
+                                
+                                    <a target="_blank" rel="noopener noreferrer" href="https://atcoder.jp/contests/typical90/submit?taskScreenName=typical90_bi">提出</a>
+                                
+                                
+                            </td>
+                        
+                    </tr>
+                
+                    <tr>
+                        <td class="text-center no-break"><a target="_blank" rel="noopener noreferrer" href="https://atcoder.jp/contests/typical90/tasks/typical90_bj">062</a></td>
+                        <td><a target="_blank" rel="noopener noreferrer" href="https://atcoder.jp/contests/typical90/tasks/typical90_bj">Paint All（★6）</a></td>
+                        <td class="text-right">2 sec</td>
+                        <td class="text-right">1024 MB</td>
+                        
+                            <td class="no-break text-center">
+                                
+                                    <a target="_blank" rel="noopener noreferrer" href="https://atcoder.jp/contests/typical90/submit?taskScreenName=typical90_bj">提出</a>
+                                
+                                
+                            </td>
+                        
+                    </tr>
+                
+                    <tr>
+                        <td class="text-center no-break"><a target="_blank" rel="noopener noreferrer" href="https://atcoder.jp/contests/typical90/tasks/typical90_bk">063</a></td>
+                        <td><a target="_blank" rel="noopener noreferrer" href="https://atcoder.jp/contests/typical90/tasks/typical90_bk">Monochromatic Subgrid（★4）</a></td>
+                        <td class="text-right">4 sec</td>
+                        <td class="text-right">1024 MB</td>
+                        
+                            <td class="no-break text-center">
+                                
+                                    <a target="_blank" rel="noopener noreferrer" href="https://atcoder.jp/contests/typical90/submit?taskScreenName=typical90_bk">提出</a>
+                                
+                                
+                            </td>
+                        
+                    </tr>
+                
+                    <tr>
+                        <td class="text-center no-break"><a target="_blank" rel="noopener noreferrer" href="https://atcoder.jp/contests/typical90/tasks/typical90_bl">064</a></td>
+                        <td><a target="_blank" rel="noopener noreferrer" href="https://atcoder.jp/contests/typical90/tasks/typical90_bl">Uplift（★3）</a></td>
+                        <td class="text-right">2 sec</td>
+                        <td class="text-right">1024 MB</td>
+                        
+                            <td class="no-break text-center">
+                                
+                                    <a target="_blank" rel="noopener noreferrer" href="https://atcoder.jp/contests/typical90/submit?taskScreenName=typical90_bl">提出</a>
+                                
+                                
+                            </td>
+                        
+                    </tr>
+                
+                    <tr>
+                        <td class="text-center no-break"><a target="_blank" rel="noopener noreferrer" href="https://atcoder.jp/contests/typical90/tasks/typical90_bm">065</a></td>
+                        <td><a target="_blank" rel="noopener noreferrer" href="https://atcoder.jp/contests/typical90/tasks/typical90_bm">RGB Balls 2（★7）</a></td>
+                        <td class="text-right">3 sec</td>
+                        <td class="text-right">1024 MB</td>
+                        
+                            <td class="no-break text-center">
+                                
+                                    <a target="_blank" rel="noopener noreferrer" href="https://atcoder.jp/contests/typical90/submit?taskScreenName=typical90_bm">提出</a>
+                                
+                                
+                            </td>
+                        
+                    </tr>
+                
+                    <tr>
+                        <td class="text-center no-break"><a target="_blank" rel="noopener noreferrer" href="https://atcoder.jp/contests/typical90/tasks/typical90_bn">066</a></td>
+                        <td><a target="_blank" rel="noopener noreferrer" href="https://atcoder.jp/contests/typical90/tasks/typical90_bn">Various Arrays（★5）</a></td>
+                        <td class="text-right">2 sec</td>
+                        <td class="text-right">1024 MB</td>
+                        
+                            <td class="no-break text-center">
+                                
+                                    <a target="_blank" rel="noopener noreferrer" href="https://atcoder.jp/contests/typical90/submit?taskScreenName=typical90_bn">提出</a>
+                                
+                                
+                            </td>
+                        
+                    </tr>
+                
+                    <tr>
+                        <td class="text-center no-break"><a target="_blank" rel="noopener noreferrer" href="https://atcoder.jp/contests/typical90/tasks/typical90_bo">067</a></td>
+                        <td><a target="_blank" rel="noopener noreferrer" href="https://atcoder.jp/contests/typical90/tasks/typical90_bo">Base 8 to 9（★2）</a></td>
+                        <td class="text-right">2 sec</td>
+                        <td class="text-right">1024 MB</td>
+                        
+                            <td class="no-break text-center">
+                                
+                                    <a target="_blank" rel="noopener noreferrer" href="https://atcoder.jp/contests/typical90/submit?taskScreenName=typical90_bo">提出</a>
+                                
+                                
+                            </td>
+                        
+                    </tr>
+                
+                    <tr>
+                        <td class="text-center no-break"><a target="_blank" rel="noopener noreferrer" href="https://atcoder.jp/contests/typical90/tasks/typical90_bp">068</a></td>
+                        <td><a target="_blank" rel="noopener noreferrer" href="https://atcoder.jp/contests/typical90/tasks/typical90_bp">Paired Information（★5）</a></td>
+                        <td class="text-right">2 sec</td>
+                        <td class="text-right">1024 MB</td>
+                        
+                            <td class="no-break text-center">
+                                
+                                    <a target="_blank" rel="noopener noreferrer" href="https://atcoder.jp/contests/typical90/submit?taskScreenName=typical90_bp">提出</a>
+                                
+                                
+                            </td>
+                        
+                    </tr>
+                
+                    <tr>
+                        <td class="text-center no-break"><a target="_blank" rel="noopener noreferrer" href="https://atcoder.jp/contests/typical90/tasks/typical90_bq">069</a></td>
+                        <td><a target="_blank" rel="noopener noreferrer" href="https://atcoder.jp/contests/typical90/tasks/typical90_bq">Colorful Blocks 2（★3）</a></td>
+                        <td class="text-right">2 sec</td>
+                        <td class="text-right">1024 MB</td>
+                        
+                            <td class="no-break text-center">
+                                
+                                    <a target="_blank" rel="noopener noreferrer" href="https://atcoder.jp/contests/typical90/submit?taskScreenName=typical90_bq">提出</a>
+                                
+                                
+                            </td>
+                        
+                    </tr>
+                
+                    <tr>
+                        <td class="text-center no-break"><a target="_blank" rel="noopener noreferrer" href="https://atcoder.jp/contests/typical90/tasks/typical90_br">070</a></td>
+                        <td><a target="_blank" rel="noopener noreferrer" href="https://atcoder.jp/contests/typical90/tasks/typical90_br">Plant Planning（★4）</a></td>
+                        <td class="text-right">2 sec</td>
+                        <td class="text-right">1024 MB</td>
+                        
+                            <td class="no-break text-center">
+                                
+                                    <a target="_blank" rel="noopener noreferrer" href="https://atcoder.jp/contests/typical90/submit?taskScreenName=typical90_br">提出</a>
+                                
+                                
+                            </td>
+                        
+                    </tr>
+                
+                    <tr>
+                        <td class="text-center no-break"><a target="_blank" rel="noopener noreferrer" href="https://atcoder.jp/contests/typical90/tasks/typical90_bs">071</a></td>
+                        <td><a target="_blank" rel="noopener noreferrer" href="https://atcoder.jp/contests/typical90/tasks/typical90_bs">Fuzzy Priority（★7）</a></td>
+                        <td class="text-right">3 sec</td>
+                        <td class="text-right">1024 MB</td>
+                        
+                            <td class="no-break text-center">
+                                
+                                    <a target="_blank" rel="noopener noreferrer" href="https://atcoder.jp/contests/typical90/submit?taskScreenName=typical90_bs">提出</a>
+                                
+                                
+                            </td>
+                        
+                    </tr>
+                
+                    <tr>
+                        <td class="text-center no-break"><a target="_blank" rel="noopener noreferrer" href="https://atcoder.jp/contests/typical90/tasks/typical90_bt">072</a></td>
+                        <td><a target="_blank" rel="noopener noreferrer" href="https://atcoder.jp/contests/typical90/tasks/typical90_bt">Loop Railway Plan（★4）</a></td>
+                        <td class="text-right">2 sec</td>
+                        <td class="text-right">1024 MB</td>
+                        
+                            <td class="no-break text-center">
+                                
+                                    <a target="_blank" rel="noopener noreferrer" href="https://atcoder.jp/contests/typical90/submit?taskScreenName=typical90_bt">提出</a>
+                                
+                                
+                            </td>
+                        
+                    </tr>
+                
+                    <tr>
+                        <td class="text-center no-break"><a target="_blank" rel="noopener noreferrer" href="https://atcoder.jp/contests/typical90/tasks/typical90_bu">073</a></td>
+                        <td><a target="_blank" rel="noopener noreferrer" href="https://atcoder.jp/contests/typical90/tasks/typical90_bu">We Need Both a and b（★5）</a></td>
+                        <td class="text-right">2 sec</td>
+                        <td class="text-right">1024 MB</td>
+                        
+                            <td class="no-break text-center">
+                                
+                                    <a target="_blank" rel="noopener noreferrer" href="https://atcoder.jp/contests/typical90/submit?taskScreenName=typical90_bu">提出</a>
+                                
+                                
+                            </td>
+                        
+                    </tr>
+                
+                    <tr>
+                        <td class="text-center no-break"><a target="_blank" rel="noopener noreferrer" href="https://atcoder.jp/contests/typical90/tasks/typical90_bv">074</a></td>
+                        <td><a target="_blank" rel="noopener noreferrer" href="https://atcoder.jp/contests/typical90/tasks/typical90_bv">ABC String 2（★6）</a></td>
+                        <td class="text-right">1 sec</td>
+                        <td class="text-right">1024 MB</td>
+                        
+                            <td class="no-break text-center">
+                                
+                                    <a target="_blank" rel="noopener noreferrer" href="https://atcoder.jp/contests/typical90/submit?taskScreenName=typical90_bv">提出</a>
+                                
+                                
+                            </td>
+                        
+                    </tr>
+                
+                    <tr>
+                        <td class="text-center no-break"><a target="_blank" rel="noopener noreferrer" href="https://atcoder.jp/contests/typical90/tasks/typical90_bw">075</a></td>
+                        <td><a target="_blank" rel="noopener noreferrer" href="https://atcoder.jp/contests/typical90/tasks/typical90_bw">Magic For Balls（★3）</a></td>
+                        <td class="text-right">2 sec</td>
+                        <td class="text-right">1024 MB</td>
+                        
+                            <td class="no-break text-center">
+                                
+                                    <a target="_blank" rel="noopener noreferrer" href="https://atcoder.jp/contests/typical90/submit?taskScreenName=typical90_bw">提出</a>
+                                
+                                
+                            </td>
+                        
+                    </tr>
+                
+                    <tr>
+                        <td class="text-center no-break"><a target="_blank" rel="noopener noreferrer" href="https://atcoder.jp/contests/typical90/tasks/typical90_bx">076</a></td>
+                        <td><a target="_blank" rel="noopener noreferrer" href="https://atcoder.jp/contests/typical90/tasks/typical90_bx">Cake Cut（★3）</a></td>
+                        <td class="text-right">2 sec</td>
+                        <td class="text-right">1024 MB</td>
+                        
+                            <td class="no-break text-center">
+                                
+                                    <a target="_blank" rel="noopener noreferrer" href="https://atcoder.jp/contests/typical90/submit?taskScreenName=typical90_bx">提出</a>
+                                
+                                
+                            </td>
+                        
+                    </tr>
+                
+                    <tr>
+                        <td class="text-center no-break"><a target="_blank" rel="noopener noreferrer" href="https://atcoder.jp/contests/typical90/tasks/typical90_by">077</a></td>
+                        <td><a target="_blank" rel="noopener noreferrer" href="https://atcoder.jp/contests/typical90/tasks/typical90_by">Planes on a 2D Plane（★7）</a></td>
+                        <td class="text-right">1.5 sec</td>
+                        <td class="text-right">1024 MB</td>
+                        
+                            <td class="no-break text-center">
+                                
+                                    <a target="_blank" rel="noopener noreferrer" href="https://atcoder.jp/contests/typical90/submit?taskScreenName=typical90_by">提出</a>
+                                
+                                
+                            </td>
+                        
+                    </tr>
+                
+                    <tr>
+                        <td class="text-center no-break"><a target="_blank" rel="noopener noreferrer" href="https://atcoder.jp/contests/typical90/tasks/typical90_bz">078</a></td>
+                        <td><a target="_blank" rel="noopener noreferrer" href="https://atcoder.jp/contests/typical90/tasks/typical90_bz">Easy Graph Problem（★2）</a></td>
+                        <td class="text-right">2 sec</td>
+                        <td class="text-right">1024 MB</td>
+                        
+                            <td class="no-break text-center">
+                                
+                                    <a target="_blank" rel="noopener noreferrer" href="https://atcoder.jp/contests/typical90/submit?taskScreenName=typical90_bz">提出</a>
+                                
+                                
+                            </td>
+                        
+                    </tr>
+                
+                    <tr>
+                        <td class="text-center no-break"><a target="_blank" rel="noopener noreferrer" href="https://atcoder.jp/contests/typical90/tasks/typical90_ca">079</a></td>
+                        <td><a target="_blank" rel="noopener noreferrer" href="https://atcoder.jp/contests/typical90/tasks/typical90_ca">Two by Two（★3）</a></td>
+                        <td class="text-right">2 sec</td>
+                        <td class="text-right">1024 MB</td>
+                        
+                            <td class="no-break text-center">
+                                
+                                    <a target="_blank" rel="noopener noreferrer" href="https://atcoder.jp/contests/typical90/submit?taskScreenName=typical90_ca">提出</a>
+                                
+                                
+                            </td>
+                        
+                    </tr>
+                
+                    <tr>
+                        <td class="text-center no-break"><a target="_blank" rel="noopener noreferrer" href="https://atcoder.jp/contests/typical90/tasks/typical90_cb">080</a></td>
+                        <td><a target="_blank" rel="noopener noreferrer" href="https://atcoder.jp/contests/typical90/tasks/typical90_cb">Let's Share Bit（★6）</a></td>
+                        <td class="text-right">2 sec</td>
+                        <td class="text-right">1024 MB</td>
+                        
+                            <td class="no-break text-center">
+                                
+                                    <a target="_blank" rel="noopener noreferrer" href="https://atcoder.jp/contests/typical90/submit?taskScreenName=typical90_cb">提出</a>
+                                
+                                
+                            </td>
+                        
+                    </tr>
+                
+                    <tr>
+                        <td class="text-center no-break"><a target="_blank" rel="noopener noreferrer" href="https://atcoder.jp/contests/typical90/tasks/typical90_cc">081</a></td>
+                        <td><a target="_blank" rel="noopener noreferrer" href="https://atcoder.jp/contests/typical90/tasks/typical90_cc">Friendly Group（★5）</a></td>
+                        <td class="text-right">2 sec</td>
+                        <td class="text-right">1024 MB</td>
+                        
+                            <td class="no-break text-center">
+                                
+                                    <a target="_blank" rel="noopener noreferrer" href="https://atcoder.jp/contests/typical90/submit?taskScreenName=typical90_cc">提出</a>
+                                
+                                
+                            </td>
+                        
+                    </tr>
+                
+                    <tr>
+                        <td class="text-center no-break"><a target="_blank" rel="noopener noreferrer" href="https://atcoder.jp/contests/typical90/tasks/typical90_cd">082</a></td>
+                        <td><a target="_blank" rel="noopener noreferrer" href="https://atcoder.jp/contests/typical90/tasks/typical90_cd">Counting Numbers（★3）</a></td>
+                        <td class="text-right">2 sec</td>
+                        <td class="text-right">1024 MB</td>
+                        
+                            <td class="no-break text-center">
+                                
+                                    <a target="_blank" rel="noopener noreferrer" href="https://atcoder.jp/contests/typical90/submit?taskScreenName=typical90_cd">提出</a>
+                                
+                                
+                            </td>
+                        
+                    </tr>
+                
+                    <tr>
+                        <td class="text-center no-break"><a target="_blank" rel="noopener noreferrer" href="https://atcoder.jp/contests/typical90/tasks/typical90_ce">083</a></td>
+                        <td><a target="_blank" rel="noopener noreferrer" href="https://atcoder.jp/contests/typical90/tasks/typical90_ce">Colorful Graph（★6）</a></td>
+                        <td class="text-right">3 sec</td>
+                        <td class="text-right">1024 MB</td>
+                        
+                            <td class="no-break text-center">
+                                
+                                    <a target="_blank" rel="noopener noreferrer" href="https://atcoder.jp/contests/typical90/submit?taskScreenName=typical90_ce">提出</a>
+                                
+                                
+                            </td>
+                        
+                    </tr>
+                
+                    <tr>
+                        <td class="text-center no-break"><a target="_blank" rel="noopener noreferrer" href="https://atcoder.jp/contests/typical90/tasks/typical90_cf">084</a></td>
+                        <td><a target="_blank" rel="noopener noreferrer" href="https://atcoder.jp/contests/typical90/tasks/typical90_cf">There are two types of characters（★3）</a></td>
+                        <td class="text-right">2 sec</td>
+                        <td class="text-right">1024 MB</td>
+                        
+                            <td class="no-break text-center">
+                                
+                                    <a target="_blank" rel="noopener noreferrer" href="https://atcoder.jp/contests/typical90/submit?taskScreenName=typical90_cf">提出</a>
+                                
+                                
+                            </td>
+                        
+                    </tr>
+                
+                    <tr>
+                        <td class="text-center no-break"><a target="_blank" rel="noopener noreferrer" href="https://atcoder.jp/contests/typical90/tasks/typical90_cg">085</a></td>
+                        <td><a target="_blank" rel="noopener noreferrer" href="https://atcoder.jp/contests/typical90/tasks/typical90_cg">Multiplication 085（★4）</a></td>
+                        <td class="text-right">2 sec</td>
+                        <td class="text-right">1024 MB</td>
+                        
+                            <td class="no-break text-center">
+                                
+                                    <a target="_blank" rel="noopener noreferrer" href="https://atcoder.jp/contests/typical90/submit?taskScreenName=typical90_cg">提出</a>
+                                
+                                
+                            </td>
+                        
+                    </tr>
+                
+                    <tr>
+                        <td class="text-center no-break"><a target="_blank" rel="noopener noreferrer" href="https://atcoder.jp/contests/typical90/tasks/typical90_ch">086</a></td>
+                        <td><a target="_blank" rel="noopener noreferrer" href="https://atcoder.jp/contests/typical90/tasks/typical90_ch">Snuke's Favorite Arrays（★5）</a></td>
+                        <td class="text-right">2 sec</td>
+                        <td class="text-right">1024 MB</td>
+                        
+                            <td class="no-break text-center">
+                                
+                                    <a target="_blank" rel="noopener noreferrer" href="https://atcoder.jp/contests/typical90/submit?taskScreenName=typical90_ch">提出</a>
+                                
+                                
+                            </td>
+                        
+                    </tr>
+                
+                    <tr>
+                        <td class="text-center no-break"><a target="_blank" rel="noopener noreferrer" href="https://atcoder.jp/contests/typical90/tasks/typical90_ci">087</a></td>
+                        <td><a target="_blank" rel="noopener noreferrer" href="https://atcoder.jp/contests/typical90/tasks/typical90_ci">Chokudai's Demand（★5）</a></td>
+                        <td class="text-right">2 sec</td>
+                        <td class="text-right">1024 MB</td>
+                        
+                            <td class="no-break text-center">
+                                
+                                    <a target="_blank" rel="noopener noreferrer" href="https://atcoder.jp/contests/typical90/submit?taskScreenName=typical90_ci">提出</a>
+                                
+                                
+                            </td>
+                        
+                    </tr>
+                
+                    <tr>
+                        <td class="text-center no-break"><a target="_blank" rel="noopener noreferrer" href="https://atcoder.jp/contests/typical90/tasks/typical90_cj">088</a></td>
+                        <td><a target="_blank" rel="noopener noreferrer" href="https://atcoder.jp/contests/typical90/tasks/typical90_cj">Similar but Different Ways（★6）</a></td>
+                        <td class="text-right">2 sec</td>
+                        <td class="text-right">1024 MB</td>
+                        
+                            <td class="no-break text-center">
+                                
+                                    <a target="_blank" rel="noopener noreferrer" href="https://atcoder.jp/contests/typical90/submit?taskScreenName=typical90_cj">提出</a>
+                                
+                                
+                            </td>
+                        
+                    </tr>
+                
+                    <tr>
+                        <td class="text-center no-break"><a target="_blank" rel="noopener noreferrer" href="https://atcoder.jp/contests/typical90/tasks/typical90_ck">089</a></td>
+                        <td><a target="_blank" rel="noopener noreferrer" href="https://atcoder.jp/contests/typical90/tasks/typical90_ck">Partitions and Inversions（★7）</a></td>
+                        <td class="text-right">3 sec</td>
+                        <td class="text-right">1024 MB</td>
+                        
+                            <td class="no-break text-center">
+                                
+                                    <a target="_blank" rel="noopener noreferrer" href="https://atcoder.jp/contests/typical90/submit?taskScreenName=typical90_ck">提出</a>
+                                
+                                
+                            </td>
+                        
+                    </tr>
+                
+                    <tr>
+                        <td class="text-center no-break"><a target="_blank" rel="noopener noreferrer" href="https://atcoder.jp/contests/typical90/tasks/typical90_cl">090</a></td>
+                        <td><a target="_blank" rel="noopener noreferrer" href="https://atcoder.jp/contests/typical90/tasks/typical90_cl">Tenkei90's Last Problem（★7）</a></td>
+                        <td class="text-right">7 sec</td>
+                        <td class="text-right">1024 MB</td>
+                        
+                            <td class="no-break text-center">
+                                
+                                    <a target="_blank" rel="noopener noreferrer" href="https://atcoder.jp/contests/typical90/submit?taskScreenName=typical90_cl">提出</a>
+                                
+                                
+                            </td>
+                        
+                    </tr>
+                
+            </tbody>
+        </table>
+        <script>
+            filters = ["", ""]
+            function myFunction() {
+              // Declare variables
+              var input, table, tr, td, i, txtValue;
+              input = document.getElementById("myInput");
+              filters[1] = input.value.toUpperCase();
+              Search()
+            }
+
+            function Search() {
+                var table, tr, td, i, txtValue;
+                table = document.getElementById("myTable");
+                tr = table.getElementsByTagName("tr");
+            
+                // Loop through all table rows, and hide those who don't match the search query
+                for (i = 0; i < tr.length; i++) {
+                    td = tr[i].getElementsByTagName("td")[1];
+                    if (td) {
+                        txtValue = td.textContent || td.innerText;
+                        let b = true
+                        for (let j=0; j < filters.length; j++) b &&= txtValue.toUpperCase().indexOf(filters[j]) > -1
+                        if (b) {
+                            tr[i].style.display = "";
+                        } else {
+                            tr[i].style.display = "none";
+                        }
+                    }
+                }
+            }
+
+            function Difficult() {
+              // Declare variables
+              var input, filter;
+              input = document.getElementById("diff");
+              filters[0] = input.value == "all" ? "" : "（★" + input.value + "）"
+              Search()
+            }
+            </script>
+            <script>var x, i, j, l, ll, selElmnt, a, b, c;
+                /* Look for any elements with the class "custom-select": */
+                x = document.getElementsByClassName("custom-select");
+                l = x.length;
+                for (i = 0; i < l; i++) {
+                  selElmnt = x[i].getElementsByTagName("select")[0];
+                  ll = selElmnt.length;
+                  /* For each element, create a new DIV that will act as the selected item: */
+                  a = document.createElement("DIV");
+                  a.setAttribute("class", "select-selected");
+                  a.innerHTML = selElmnt.options[selElmnt.selectedIndex].innerHTML;
+                  x[i].appendChild(a);
+                  /* For each element, create a new DIV that will contain the option list: */
+                  b = document.createElement("DIV");
+                  b.setAttribute("class", "select-items select-hide");
+                  for (j = 1; j < ll; j++) {
+                    /* For each option in the original select element,
+                    create a new DIV that will act as an option item: */
+                    c = document.createElement("DIV");
+                    c.innerHTML = selElmnt.options[j].innerHTML;
+                    c.addEventListener("click", function(e) {
+                        /* When an item is clicked, update the original select box,
+                        and the selected item: */
+                        var y, i, k, s, h, sl, yl;
+                        s = this.parentNode.parentNode.getElementsByTagName("select")[0];
+                        sl = s.length;
+                        h = this.parentNode.previousSibling;
+                        for (i = 0; i < sl; i++) {
+                          if (s.options[i].innerHTML == this.innerHTML) {
+                            s.selectedIndex = i;
+                            h.innerHTML = this.innerHTML;
+                            y = this.parentNode.getElementsByClassName("same-as-selected");
+                            yl = y.length;
+                            for (k = 0; k < yl; k++) {
+                              y[k].removeAttribute("class");
+                            }
+                            this.setAttribute("class", "same-as-selected");
+                            break;
+                          }
+                        }
+                        h.click();
+                    });
+                    b.appendChild(c);
+                  }
+                  x[i].appendChild(b);
+                  a.addEventListener("click", function(e) {
+                    /* When the select box is clicked, close any other select boxes,
+                    and open/close the current select box: */
+                    e.stopPropagation();
+                    closeAllSelect(this);
+                    this.nextSibling.classList.toggle("select-hide");
+                    this.classList.toggle("select-arrow-active");
+                  });
+                }
+                
+                function closeAllSelect(elmnt) {
+                  /* A function that will close all select boxes in the document,
+                  except the current select box: */
+                  var x, y, i, xl, yl, arrNo = [];
+                  x = document.getElementsByClassName("select-items");
+                  y = document.getElementsByClassName("select-selected");
+                  xl = x.length;
+                  yl = y.length;
+                  for (i = 0; i < yl; i++) {
+                    if (elmnt == y[i]) {
+                      arrNo.push(i)
+                    } else {
+                      y[i].classList.remove("select-arrow-active");
+                    }
+                  }
+                  for (i = 0; i < xl; i++) {
+                    if (arrNo.indexOf(i)) {
+                      x[i].classList.add("select-hide");
+                    }
+                  }
+                }
+                
+                /* If the user clicks anywhere outside the select box,
+                then close all select boxes: */
+                document.addEventListener("click", closeAllSelect);</script>
+    </body>
+</html>
